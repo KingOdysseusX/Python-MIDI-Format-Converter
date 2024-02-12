@@ -1,15 +1,15 @@
-# converter.py
+# main.py
 
 import mido
 
 """
-The issue with using MuseScore4 midi files in FL Studio is that they are
-not compatible with FL Studio because FL Studio does not use the first track
-for storing or reading note data; whereas, MuseScore4 does. This converter
-will convert the MuseScore4 midi file to a format that is compatible with FL Studio.
-To do this, the converter will take the first track of the MuseScore4 midi file
-and move all the notes held within it to the second track of the MuseScore4 midi file
-so that the first track only contains the necessary data matching how FL Studio
+The issue with using MuseScore 4 midi files in FL Studio 21 is they are
+not compatible with FL Studio 21 because FL Studio 21 does not use the first track
+for storing or reading note data; whereas, MuseScore 4 does. This converter
+will convert the MuseScore 4 midi file into a format that is compatible with FL Studio 21.
+To do this, the converter will take the first track of the MuseScore 4 midi file
+and move all the notes held within it to the second track of the MuseScore 4 midi file
+so that the first track only contains the necessary data matching how FL Studio 21
 expects the data to be.
 """
 
@@ -28,17 +28,6 @@ class MuseScore4ToFLStudioConverter:
             return
 
         self.muse_track_names = [track.name for track in self.muse_mid.tracks]
-
-
-    def compare_midi_files(self, flstudio_file):
-        """
-        Compares the MuseScore4 MIDI file to a FL Studio MIDI file.
-
-        args:
-            flstudio_file: Path to the FL Studio MIDI file.
-        """
-        self.flstudio_mid = mido.MidiFile(flstudio_file)
-        self.flstudio_track_names = [track.name for track in self.flstudio_mid.tracks]
 
     def _calculate_absolute_times(self, track):
         absolute_times = []
@@ -91,8 +80,8 @@ class MuseScore4ToFLStudioConverter:
 
 
 if __name__ == "__main__":
-    muse_file = "TheIdiot.mid"
-    flstudio_file = "idiot.mid"
+    muse_file = "Path/To/MuseScore4/File.mid"
+    flstudio_file = "Path/To/Desired/FLStudio/File.mid"
     converter = MuseScore4ToFLStudioConverter(muse_file)
     converter.convert_midi_file()
     converter.save_converted_file(flstudio_file)
