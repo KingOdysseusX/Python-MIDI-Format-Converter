@@ -1,4 +1,4 @@
-# main.py
+# src/main.py
 
 import mido
 
@@ -12,6 +12,7 @@ and move all the notes held within it to the second track of the MuseScore 4 mid
 so that the first track only contains the necessary data matching how FL Studio 21
 expects the data to be.
 """
+
 
 class MuseScore4ToFLStudioConverter:
     def __init__(self, muse_file):
@@ -59,10 +60,14 @@ class MuseScore4ToFLStudioConverter:
             return
 
         # Filter and store meta messages before clearing the first track
-        meta_messages = [msg for msg in self.muse_mid.tracks[0] if isinstance(msg, mido.MetaMessage)]
+        meta_messages = [
+            msg for msg in self.muse_mid.tracks[0] if isinstance(msg, mido.MetaMessage)
+        ]
 
         # Merge the first two tracks preserving their timing
-        merged_track = self._merge_tracks_preserving_timing(self.muse_mid.tracks[0], self.muse_mid.tracks[1])
+        merged_track = self._merge_tracks_preserving_timing(
+            self.muse_mid.tracks[0], self.muse_mid.tracks[1]
+        )
 
         # Clear the first track and add back the meta messages
         self.muse_mid.tracks[0].clear()
